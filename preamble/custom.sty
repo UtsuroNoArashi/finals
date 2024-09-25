@@ -1,0 +1,21 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{custom}
+\RequirePackage{mathtools}
+\RequirePackage{amsfonts}
+\RequirePackage{xparse}
+\usepackage[italian]{babel}
+\usepackage{tikz}
+
+\usetheme{metropolis}
+
+\ProvideDocumentCommand{\bigO}{m}{
+    \mathcal{O} \left\lparen #1 \right\rparen
+}
+
+\ProvideDocumentCommand{\abs}{m}{
+    \left\lvert #1 \right\rvert
+}
+
+\ProvideDocumentCommand{\range}{m m}{
+    \left\lparen #1, #2 \right\rparen
+}
