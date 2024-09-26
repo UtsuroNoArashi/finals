@@ -131,9 +131,20 @@
         sia \(\ell \in \{0, 1\} \), tale che \(\hat{\omega}[k] \prec_{\ell} 
         \hat{\omega}[i], \text{per } k = \min \{ k' \, \vert \, \hat{\omega}[k'] \ne 
         \hat{\omega}[i], k' > i\}\). Allora \(l_{\ell}(i) = [i, i]\) e 
-        \(l_{\overline{\ell}}(i) = [i, j], \text{per qualche} j > i\).
-    \end{frame}
-
+        \(l_{\overline{\ell}}(i) = [i, j], \text{per qualche } j > i\).
+        \vskip 10pt 
+        % Seconda osservazione è che: data una ripetizione \(r\),
+        % esiste un ordine \(\prec_{\ell_{r}} \in \{\prec_{0}, \prec_{1}\}\)
+        % tale che la L-root della runc rispetto \(\prec_{\ell_{r}}\)
+        % coincide con la longest Lyndon word rispetto \(\prec_{\ell_{r}}\)
+        % che inizia in quella posizione.
+        \textbf{Lemma: } sia \(r = (i, j, p)\) una ripetizione in una stringa
+        \(\omega\), sia inoltre \(\ell_{r} \in \{0, 1\}\) tale che 
+        \(\hat{\omega}[j + 1] \prec_{\ell_{r}} \hat{\omega}[j + 1 -p]\).
+        Allora, ogni L-root \(\lambda = [i_{\lambda}, j_{\lambda}]\) di \(r\)
+        rispetto \(\prec_{\ell_{r}}\) è uguale alla longest Lyndon word.
+   \end{frame}
+ 
     % \begin{frame}{Bibliografia}
     %     \begin{thebibliography}{99}
     %         \bibitem {KolpakovKuckerov} R. M. KUCHEROV {\footnotesize AND} G. KOLPAKOV,
