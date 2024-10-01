@@ -3,39 +3,40 @@
 
 \setbeamertemplate{bibliography item}[text]
 
-\title{Longest run \& ``Runs'' conjecture}
+\title{Maximal repetition \& ``Runs'' conjecture}
 \author{Riccardo Lo Iacono}
 \begin{document}
     \begin{frame}
         \maketitle
     \end{frame}
 
-    \begin{frame}{Il problema}
-        Considerata \(s\) una stringa qualsiasi di lunghezza \(n\),
-        qual è il numero massimo di ripetizioni \(\rho (n)\) in essa?
-        \vskip 10pt
-        \textbf{Congettura: } \(\rho (n) < n\)?
+    \begin{frame}{Definizioni preliminarie}
+        \textbf{Definizione: } una terna \(r = (i, j, p)\) è una ripetizione 
+        massimale (o \emph{run}) di una qualche stringa \(s\),
+        se il più piccolo periodo \(p\) di \(s[i, j]\) è tale che 
+        \(\abs{s[i, j]} = j - i \ge 2p\). 
+        \vskip 10pt 
+        \textbf{Esempio:} sia considerata la stringa \(s = aababaababb\).
+        Si ha che gli intervalli \([1,2] = a^{2} , [6,7] = a^{2}, 
+        [10,11] = b^{2}, [2, 6] = (ab)^{5\slash 2}, [7, 10] = (ab)^{2},
+        [4, 9] = (aba)^{2}, [1, 10] = (aabab)^{2}\)
+        hanno rispettivamente periodo, 1, 2, 3, 5.
+        \vskip 10pt 
+        Sia posto \(\rho(n)\) il numero di ripetizioni massimali.
+        Inoltre, sia \(Runs(s)\) l'insieme delle run in \(s\). 
     \end{frame}
-    
-    \begin{frame}{Applicazioni}
-        \begin{itemize}
-            \item Compressione di testi
-            \item Indicizzazione di testi
-            \item Ricerca di pattern genomici\footnotemark[1]
-        \end{itemize}
 
-        \footnotetext[1]{Si è dimostrato che alcuni pattern genomici
-        sono indicatori di alcune malattie.}
-    \end{frame}
-        
     \begin{frame}{Background storico}
-        \emph{Kolpakov \emph{e} Kucherov} in \cite{KolpakovKuckerov},
-        dimostrano come \(\rho(n)\) sia limitato superiormente 
-        da una funzione \(\bigO{n}\).
-        \vskip 15pt 
-        Segue la ``Runs`` conjecture.
-    \end{frame}
+        \emph{Kolpakov \emph{e} Kucherov}\footnotemark[1]
+        dimostrano \(\rho(n) = \bigO{n}\).
+        \vskip 10pt
+        \textbf{Congettura: } \(\rho (n) < n\).
 
+        \footnotetext[1]{R. M. KUCHEROV {\footnotesize AND} G. KOLPAKOV,
+                 \emph{Finding maximal repetition in a word in linear time.}
+         }
+    \end{frame}
+           
     \begin{frame}{Punti chiave della discussione}
         \begin{itemize}
             \item Dimostrazione della runs conjecture.
@@ -46,7 +47,7 @@
 
     \begin{frame}{Notazione}
         \begin{itemize}
-            \item \(\Sigma\) è un alfabeto\footnotemark[2] finito di simboli
+            \item \(\Sigma\) è un alfabeto finito di simboli
             \item \(s \in \Sigma^{*}\) è una stringa, la cui lunghezza è \(\abs{s}\)
             \item \(s[i]\) è l'iesimo carattere di \(s\), 
                 \(s[i,j]\) è la sotto-stringa compresa tra gli indici \(i, j\)
@@ -55,25 +56,14 @@
                 \iff s[i] == s[i + p],  1 \le i \le \abs{s} - p\) 
             \item \(\mathcal{I}\) insieme di intevalli, 
                 \(Beg(\mathcal{I})\) posizioni iniziali degli intervalli in \(\mathcal{I}\)
-            \item \(\prec\) ordine totale su \(\Sigma\) e ordine lessicografico
-                indotto su esso
+            \item \(\prec_{0}\) ordine totale su \(\Sigma\) e ordine lessicografico
+                indotto su \(\Sigma^{*}\), \(\prec_{1}\) ordine rovesciato.
         \end{itemize}
-
-        \footnotetext[2]{Si assume \(\Sigma\) non unario.}
-    \end{frame}
-
-    \begin{frame}{Concetto di ripetizione ed esempio}
-        \textbf{Definizione: } una terna \(r = (i, j, p)\) è una ripetizione 
-        (o \emph{run}) di una qualche stringa \(\omega\),
-        se il più piccolo periodo \(p\) di \(\omega[i, j]\) è tale che 
-        \(\abs{\omega[i, j]} \ge 2p\).
-        \vskip 15pt 
-        Sia \(Runs(\omega)\) l'insieme delle runs in \(\omega\). 
     \end{frame}
 
     \begin{frame}
-        \textbf{Esempio: } sia \(\omega = babbabbab\).
-        Si osserva facilmente che le ripetizioni in essa sono quelle 
+        \textbf{Esempio: } sia \(s = babbabbab\).
+        Si osserva facilmente che le ripetizioni massimali in essa sono quelle 
         in \emph{Figura \ref{fig:1}}.
         \begin{figure}[!h]
             \centering
@@ -82,55 +72,59 @@
                     \node at (\i, 0) {\char};
                 }    
 
-                \draw[ |-| ] (1.5, .5) -- (2.5, .5); 
-                \draw[ -| ] (2.5, .5) -- (3.5, .5);
+                \draw[ |-| ] (2, .5) -- (3, .5); 
 
-                \draw[ |-| ] (4.5, .5) -- (5.5, .5);
-                \draw[ -| ] (5.5, .5) -- (6.5, .5);
+                \draw[ |-| ] (5, .5) -- (6, .5);
 
-                \draw[ |-| ] (.5, -.5) -- (3.5, -.5);
-                \draw[ -| ] (3.5, -.5) -- (6.5, -.5);
+                \draw[ |-| ] (0, -.5) -- (2.5, -.5);
+                \draw[ -| ] (2.5, -.5) -- (5.5, -.5);
+                \draw[ -| ] (5.5, -.5) -- (8, -.5);
 
-                \draw[ |-| ] (-.5, 1) -- (2.5, 1);
-                \draw[ -| ] (2.5, 1) -- (5.5, 1);
-                \draw[ -| ] (5.5, 1) -- (8.5, 1);
+                \node at (2.5, .5) [anchor =south] {\(r_{2}\)};
+                \node at (5.5, .5) [anchor = south] {\(r_{3}\)};
+                \node at (0, -.5) [anchor = east] {\(r_{1}\)};
 
-                \node at (-.5, 1) [anchor = east] {\(r_{1}\)};
-                \node at (.5, -.5) [anchor = east] {\(r_{2}\)};
-                \node at (1.5, .5) [anchor = east] {\(r_{3}\)};
-                \node at (4.5, .5) [anchor = east] {\(r_{4}\)};
             \end{tikzpicture}
-            \caption{Esempio di ripetizioni.}
+            \caption{Esempio di ripetizioni massimali}
             \label{fig:1}
         \end{figure}
         Segue che 
             \[
-                Runs(babbabbab) = \{(1, 9, 3), (2, 7, 3), (3, 4, 1), (6, 7, 1)\} 
+                Runs(babbabbab) = \{(1, 9, 3), (3, 4, 1), (6, 7, 1)\} 
             \]
     \end{frame}
 
     \begin{frame}{Lyndon words \&  L-roots}
-        \textbf{Definizione} (Lyndon word): una stringa non vuota \(\omega \in \Sigma\)
-        è detta essere una \emph{Lyndon word}, rispetto \(\prec\), 
-        se \(\omega \prec u\), per ogni \(u\) suffisso proprio di \(\omega\).
-        \vskip 15pt 
+        \textbf{Definizione} (Lyndon word): una stringa non vuota \(s \in \Sigma^{*}\)
+        è detta essere una \emph{Lyndon word}, rispetto a \(\prec\), 
+        se \(s \prec u\), per ogni \(u\) suffisso proprio di \(s\).
+        \vskip 5pt
+         Definizione equivalente è la seguente.
+        \vskip 5pt
+        \textbf{Definizione: } data una stringa \(s\) di lunghezza \(n\) e 
+        \(i \in [1, n]\), la stringa \(s_{i}s[1, i - 1]\) è detta 
+        \emph{shift ciclico} di \(s\), non banale se \(i > 1\).
+        Una Lyndon word è una stringa non vuota che è lessicograficamente minore
+        di ogni suo shift ciclico non banale.
+        \vskip 10pt 
         \textbf{Definizione} (L-root): data \(r = (i, j, p)\) una run per una 
-        qualche stringa \(\omega \in \Sigma^{*}\),
+        qualche stringa \(s \in \Sigma^{*}\),
         un intervallo \(\lambda = [i_{\lambda}, j_{\lambda}]\) è detto essere
         \emph{L-root} di \(r\) rispetto \(\prec\) se 
         \(i \le i_{\lambda} \le j_{\lambda} \le j\)
-        e \(\omega[i_{\lambda}, j_{\lambda}]\) è una Lyndon word.
+        e \(s[i_{\lambda}, j_{\lambda}]\) è una Lyndon word.
     \end{frame}
 
     \begin{frame}{``Runs'' Theorem}
+        Sia \(\hat{s} = s\textdollar, \textdollar \notin \Sigma\).
         % Prima osservazione è che: se consideriamo la più lunga Lyndon word,
         % rispetto \(\prec_{0} \text{e} \prec{1}\) che inizia a un dato \(i\),
         % uno dei due avrà lunghezza 1.
 
-        \textbf{Lemma:} per ogni stringa \(\omega\) e posizione \(i\),
+        \textbf{Lemma 1:} per ogni stringa \(s\) e posizione \(i\),
         sia \(\ell \in \{0, 1\} \), tale che \(\hat{\omega}[k] \prec_{\ell} 
-        \hat{\omega}[i], \text{per } k = \min \{ k' \, \vert \, \hat{\omega}[k'] \ne 
-        \hat{\omega}[i], k' > i\}\). Allora \(l_{\ell}(i) = [i, i]\) e 
+        \hat{s}[i], \text{per } k = \min \{ k' \, \vert \, \hat{s}[k'] \ne 
+        \hat{s}[i], k' > i\}\). Allora \(l_{\ell}(i) = [i, i]\) e 
         \(l_{\overline{\ell}}(i) = [i, j], \text{per qualche } j > i\).
         \vskip 10pt 
         % Seconda osservazione è che: data una ripetizione \(r\),
@@ -138,17 +132,28 @@
         % tale che la L-root della runc rispetto \(\prec_{\ell_{r}}\)
         % coincide con la longest Lyndon word rispetto \(\prec_{\ell_{r}}\)
         % che inizia in quella posizione.
-        \textbf{Lemma: } sia \(r = (i, j, p)\) una ripetizione in una stringa
-        \(\omega\), sia inoltre \(\ell_{r} \in \{0, 1\}\) tale che 
-        \(\hat{\omega}[j + 1] \prec_{\ell_{r}} \hat{\omega}[j + 1 -p]\).
+        \textbf{Lemma 2: } sia \(r = (i, j, p)\) una ripetizione massimale in una stringa
+        \(s\), sia inoltre \(\ell_{r} \in \{0, 1\}\) tale che 
+        \(\hat{s}[j + 1] \prec_{\ell_{r}} \hat{s}[j + 1 -p]\).
         Allora, ogni L-root \(\lambda = [i_{\lambda}, j_{\lambda}]\) di \(r\)
-        rispetto \(\prec_{\ell_{r}}\) è uguale alla longest Lyndon word.
+        rispetto \(\prec_{\ell_{r}}\) è uguale a \(l_{\ell_{r}}(i_{\lambda})\).
    \end{frame}
- 
-    % \begin{frame}{Bibliografia}
-    %     \begin{thebibliography}{99}
-    %         \bibitem {KolpakovKuckerov} R. M. KUCHEROV {\footnotesize AND} G. KOLPAKOV,
-    %             \emph{Finding maximal repetition in a word in linear time.}
-    %     \end{thebibliography}
-    % \end{frame}
+
+   \begin{frame}
+       Sia \(B_{r}\) l'insieme delle L-root tali da soddisfare \emph{Lemma 2},
+       allora vale quanto segue.
+
+       \textbf{Lemma 3: } per ogni coppia di ripetizioni massimali \(r, r'\), 
+       con \(r \ne r'\), \(Beg(B_{r}) \cap Beg(B_{r'}) = \varnothing\).
+
+       Da ciò, poiché 
+       \[
+           \abs{Beg(B_{r})} = \abs{B_{r}} \ge \floor{e_{e} - 1} \ge 1
+       \]
+       e inoltre, dato che \(1 \notin Beg(B_{r})\) per ogni run \(r\), regge
+       \(\sum_{r \in Runs(s)}{\abs{B_{r}}} = \sum_{r \in Runs(s)}{\abs{Beg(B_{r})}}
+       \le \abs{s} - 1\).
+
+       \textbf{Teorema: } \(\rho(s) < n\).
+   \end{frame}
 \end{document}
