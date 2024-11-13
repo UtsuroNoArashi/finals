@@ -11,15 +11,16 @@
     \end{frame}
 
     \begin{frame}{Notazione}
-        \begin{itemize}
+        \begin{enumerate}
             \item \(\Sigma\) è un alfabeto ordinato e finito di simboli
             \item Un elemento \(S \in \Sigma^{*}\) è detto stringa,
                 la cui lunghezza è denotata da \(\abs{S}\)
-            \item L'i-esimo carattere di S sarà denotato da S[i],
-                \(1 \le i \le n = \abs{S}\)
-            \item Per ogni i, j S[i, j] indica la sottostringa compresa tra le 
-                posizioni i e j, \(1 \le i \le j \le n = \abs{S}\)
-        \end{itemize}
+            \item Per ogni i, \(1 \le i \le n = \abs{S}\), 
+                S[i] indica l'i-esimo carattere in S.
+            \item Per ogni i, j, \(1 \le i \le j \le n = \abs{S}\),
+                S[i, j] indica la sottostringa compresa tra le 
+                posizioni i e j, 
+        \end{enumerate}
     \end{frame}
 
     \begin{frame}{Periodo ed esponente}
@@ -33,26 +34,26 @@
 
     \begin{frame}{Ripetizioni massimali}
         \textbf{Definizione: } Una coppia (i, j) è detta ripetizione massimale
-        (o run) di una stringa S, se \(\exp\{S[i, j]\} \ge 2p\) e la periodicità
+        (o run) di una stringa S, se \(\exp(S[i, j]) \ge 2p\) e la periodicità
         non può essere estesa ne a destra ne a sinistra.
-
-        Sia \emph{Runs\{S\}} l'insieme dei run in S, 
-        \(\rho(S)\) la sua cardinalità.
     \end{frame}
 
     \begin{frame}{Un esempio}
-        Sia considerata la stringa \(S = babbabbababbabbabc\) che contiene nove 
+        Sia considerata la stringa \(S = babbabbababbabbabc\); questa contiene nove 
         run, mostrati in \emph{Figura \ref{fig:1}}.
 
         \begin{figure}[!h]
             \centering
             \includegraphics[scale = .85]{../Extra/run example.jpg}
-            \caption{Illustrazione run nella stringa S = babbabbababbabbabc.}
+            \caption{Illustrazione dei run nella stringa S = babbabbababbabbabc.}
             \label{fig:1}
         \end{figure}
     \end{frame}
 
     \begin{frame}{Background storico}
+
+        Sia \(\rho(S)\) il numero dei run in una stringa S.
+
         \emph{Kolpakov \emph{e} Kucherov}\footnotemark[1]
         dimostrano che \(\rho(S) = \bigO{|S|}\).
         \vskip 10pt
@@ -64,141 +65,91 @@
     \end{frame}
 
     \begin{frame}{Punti chiave della discussione}
-        \begin{itemize}
+        \begin{enumerate}
             \item Dimostrazione della runs conjecture.
-            \item Soluzione algoritmica per il calcolo delle ripetizioni 
-                massimali in \(\bigO{n}\).
-        \end{itemize}
+            \item Applicazione della soluzione algoritmica.
+        \end{enumerate}
     \end{frame}
-    
-    % \begin{frame}
-    %     \textbf{Esempio: } sia \(s = babbabbab\).
-    %     Si osserva facilmente che le ripetizioni massimali in essa sono quelle 
-    %     in \emph{Figura \ref{fig:1}}.
-    %     \begin{figure}[!h]
-    %         \centering
-    %         \begin{tikzpicture}
-    %             \foreach \char/\i in {b/0, a/1, b/2, b/3, a/4, b/5, b/6, a/7, b/8} {
-    %                 \node at (\i, 0) {\char};
-    %             }    
-    %
-    %             \draw[ |-| ] (2, .5) -- (3, .5); 
-    %
-    %             \draw[ |-| ] (5, .5) -- (6, .5);
-    %
-    %             \draw[ |-| ] (0, -.5) -- (2.5, -.5);
-    %             \draw[ -| ] (2.5, -.5) -- (5.5, -.5);
-    %             \draw[ -| ] (5.5, -.5) -- (8, -.5);
-    %
-    %             \node at (2.5, .5) [anchor =south] {\(r_{2}\)};
-    %             \node at (5.5, .5) [anchor = south] {\(r_{3}\)};
-    %             \node at (0, -.5) [anchor = east] {\(r_{1}\)};
-    %
-    %         \end{tikzpicture}
-    %         \caption{Esempio di ripetizioni massimali}
-    %         \label{fig:1}
-    %     \end{figure}
-    %     Segue che 
-    %         \[
-    %             Runs(babbabbab) = \{(1, 9, 3), (3, 4, 1), (6, 7, 1)\} 
-    %         \]
-    % \end{frame}
-    %
-    % \begin{frame}{Lyndon words \&  L-roots}
-    %     \textbf{Definizione} (Lyndon word): una stringa non vuota \(s \in \Sigma^{*}\)
-    %     è detta essere una \emph{Lyndon word}, rispetto a \(\prec\), 
-    %     se \(s \prec u\), per ogni \(u\) suffisso proprio di \(s\).
-    %     \vskip 5pt
-    %      Definizione equivalente è la seguente:
-    %     \vskip 5pt
-    %     \textbf{Definizione: } data una stringa \(s\) di lunghezza \(n\) e 
-    %     \(i \in [1, n]\), la stringa \(s_{i}s[1, i - 1]\) è detta 
-    %     \emph{shift ciclico} di \(s\), non banale se \(i > 1\).
-    %     Una Lyndon word è una stringa non vuota che è lessicograficamente minore
-    %     di ogni suo shift ciclico non banale.
-    %     \vskip 10pt 
-    %     \textbf{Definizione} (L-root): dato \(r = (i, j, p)\) un run per una 
-    %      stringa \(s \in \Sigma^{*}\),
-    %     un intervallo \(\lambda = [i_{\lambda}, j_{\lambda}]\) è detto essere
-    %     \emph{L-root} di \(r\) rispetto a \(\prec\) se 
-    %     \(i \le i_{\lambda} \le j_{\lambda} \le j\)
-    %     e \(s[i_{\lambda}, j_{\lambda}]\) è una Lyndon word.
-    % \end{frame}
-    %
-    % \begin{frame}{``Runs'' Theorem}
-    %     Sia \(\hat{s} = s\textdollar, \textdollar \notin \Sigma\).
-    %     % Prima osservazione è che: se consideriamo la più lunga Lyndon word,
-    %     % rispetto \(\prec_{0} \text{e} \prec{1}\) che inizia a un dato \(i\),
-    %     % uno dei due avrà lunghezza 1.
-    %
-    %     \textbf{Lemma 1:} Per ogni stringa \(s\) e posizione \(i\),
-    %     sia \(\ell \in \{0, 1\} \), tale che \(\hat{s}[k] \prec_{\ell} 
-    %     \hat{s}[i], \text{per } k = \min \{ k' \, \vert \, \hat{s}[k'] \ne 
-    %     \hat{s}[i], k' > i\}\). Allora \(l_{\ell}(i) = [i, i]\) e 
-    %     \(l_{\overline{\ell}}(i) = [i, j], \text{per qualche } j > i\).
-    %     \vskip 10pt 
-    %     % Seconda osservazione è che: data una ripetizione \(r\),
-    %     % esiste un ordine \(\prec_{\ell_{r}} \in \{\prec_{0}, \prec_{1}\}\)
-    %     % tale che la L-root della runc rispetto \(\prec_{\ell_{r}}\)
-    %     % coincide con la longest Lyndon word rispetto \(\prec_{\ell_{r}}\)
-    %     % che inizia in quella posizione.
-    %     \textbf{Lemma 2: } Sia \(r = (i, j, p)\) una ripetizione massimale in una stringa
-    %     \(s\), sia inoltre \(\ell_{r} \in \{0, 1\}\) tale che 
-    %     \(\hat{s}[j + 1] \prec_{\ell_{r}} \hat{s}[j + 1 -p]\).
-    %     Allora, ogni L-root \(\lambda = [i_{\lambda}, j_{\lambda}]\) di \(r\)
-    %     rispetto \(\prec_{\ell_{r}}\) è uguale a \(l_{\ell_{r}}(i_{\lambda})\).
-    % \end{frame}
-    %
-    % \begin{frame}
-    %    Sia \(B_{r}\) l'insieme delle L-root tali da soddisfare \emph{Lemma 2},
-    %    allora vale quanto segue.
-    %
-    %    \textbf{Lemma 3: } per ogni coppia di ripetizioni massimali \(r, r'\), 
-    %    con \(r \ne r'\), \(Beg(B_{r}) \cap Beg(B_{r'}) = \varnothing\).
-    %
-    %    Da ciò, poiché 
-    %    \[
-    %        \abs{Beg(B_{r})} = \abs{B_{r}} \ge \floor{e_{e} - 1} \ge 1
-    %    \]
-    %    e inoltre, dato che \(1 \notin Beg(B_{r})\) per ogni run \(r\), vale
-    %    \(\sum_{r \in Runs(s)}{\abs{B_{r}}} = \sum_{r \in Runs(s)}{\abs{Beg(B_{r})}}
-    %    \le \abs{s} - 1\).
-    %
-    %    \textbf{Teorema: } \(\rho(s) < n\).
-    % \end{frame}
-    %
-    % \begin{frame}{L'algoritmo (Bannai et al.)} 
-    %     Bannai et al. propongono un algoritmo per determinare le ripetizioni
-    %     massimali; algoritmo che risulta però \(\Theta(n)\) (costo dipendente dal computo degli LCE).
-    % \end{frame}
-    %
-    % \begin{frame}{osservazioni teoriche}
-    %     Kosolobov ha dimostrato che, dato un generico alfabeto ordinato,
-    %    si possono calcolare \(\bigO{n}\) LCE  in tempo 
-    %     \(\bigO{n \log^{2\slash 3} n}\); congetturando l'esistenza di un 
-    %     algoritmo lineare. \footnote{D. Kosolobov, Title, venue.}
-    %
-    %     Crochemore et al. hanno dimostrato che per computare \(\bigO{n}\) LCE 
-    %     non sovrapposti è richiesto tempo \(\bigO{n \alpha(n)}\) (\(\alpha\) 
-    %     funzione inversa di Ackermann) \footnote{M. Crochemore, Title, venue.}.
-    % \end{frame}
-    %
-    % \begin{frame}
-    %     \textbf{Definizione } (Next Smallest Suffix): 
-    %     data \(s\) una stringa di lunghezza \(n\),
-    %     il suo next-smallest-suffix (NSS) array è definito come segue:
-    %     \[
-    %         \forall i \in [1, n],  nss[i] = \min\{j \mid j = n + 1 \lor 
-    %             (j \in (1, n] \land s[i, n] \succ s[j, n])\}
-    %     \]
-    %     Se \(nss[i] \le n, s[nss[i], n]\) è detto next-smallest-suffix di 
-    %     \(s[i, n]\).
-    %
-    %     % Da questo l'algoritmo di Fisher et al. in breve
-    % \end{frame}
-    %
-    % % \begin{frame}
-    % %     % Eventuale slide con esempi di applicazione del codice.
-    % % \end{frame}
 
+    \begin{frame}{Lyndon words}
+
+        Sia \(\prec\) l'ordine totale definito su \(\Sigma\),
+        e si indichi con lo stesso l'ordine indotto su \(\Sigma^{*}\).
+        
+        Assunto \(\prec \text{ su } \Sigma\), si può definire \(\tilde{\prec}\)
+        l'ordine rovesciato. Ossia, un'ordine tale per cui presi \(a, b \in \Sigma\),
+        se 
+        \[
+            a \prec b \implies b \ \tilde{\prec} \ a
+        \]
+
+        Siano \(\prec_{0}, \prec_{1}\) rispettivamente l'ordine indotto su 
+        \(\Sigma^{*}\) e l'ordine rovesciato.
+
+    \end{frame}
+    \begin{frame}
+        Data S una stringa e un indice i, \(1 \le i \le n\),
+        la stringa S[i, n]S[1, i] è detta \emph{shift ciclico} di S 
+        (se i > 1 \emph{shift ciclico non banale}).
+
+        \textbf{Definizione (Lyndon word): } 
+        Una stringa \(S \in \Sigma^{*}, S \ne \varepsilon\),
+        è detta Lyndon word se S è minore di ogni suo shift ciclico non banale.
+    \end{frame}
+    \begin{frame}{La ``Runs'' conjecture}
+        \textbf{Congettura: } \(\rho(S) < \abs{S}\), per ogni stringa S.
+
+        \textbf{Dimostrazione: } Sia S una stringa di lunghezza n,
+        e sia (i, j), \(0 \le i < j < n\), un suo run con periodo p minore.
+
+        Se j + 1 < n, ed inoltre S[j - p + 1] \(\prec_{0}\) S[j + 1],
+        al run si assegna un indice k tale per cui S[k, j] è il \emph{longest proper suffisso}
+        di S[i, j]. Viceversa k definisce il più lungo suffisso per \(\prec_{1}\).
+
+        Si noti che se k > i allora k > 0, e S[k, j] contiene un intero periodo del run.
+        Inoltre, S[k, k + p - 1] è il più lungo coniugato di S[i ,i + p - 1]
+        rispetto i due ordini. Ciò implica l'essere \emph{border-free} % Che si intende?
+        che è una proprietà nota delle Lyndon word.
+    \end{frame}
+    \begin{frame}
+        Si intende dunque dimostrare che ogni k > 0 è posizione iniziale 
+        di al più un solo \emph{longest proper suffix} in un run.
+
+        Siano quindi considerati due run: (i, j) e (k, l) rispettivamente
+        un p-run e un q-run. Inoltre, sia assunto per assurdo che 
+        i loro longest proper suffix condividano la stessa posizione iniziale k.
+
+        Poichè run distinti non possono avere uno stesso periodo si può assumere
+        \(p \ne q\).
+    \end{frame}
+    \begin{frame}
+        \begin{enumerate}
+            \item j = l, ma allora S[k, j] = S[k, l].
+                Assumendo per esempio p < q, S[k, k + q - 1] ha periodo p,
+                ma allora questa non è border-free, che è una contraddizione.
+
+            \item sia j < l, ragionamento analogo vale nel caso j > l, 
+                inoltre siano i suffissi i più lunghi rispetto un stesso ordine.
+                Posto d = S[j + 1], carattere successivo il p-run, 
+                per definizione si ha S[j - p + 1] \(\prec\) d. 
+                Inoltre, S[k, k - p + 1] \(\prec\) S[k, j - p]d. 
+                Ma da ciò segue che S[k, l - 1] non è massimale come supposto,
+                poichè S[i + p, j] è fattore del q-run.
+        \end{enumerate}
+    \end{frame}
+    \begin{frame}
+        \begin{enumerate}
+            \item [3.] \(j \ne l\) e i suffissi risultano essere massimali secondo ordini diversi.
+                Senza perdita di generalita sia p < q e il suffisso del p-run
+                sia massimale rispetto \(\prec_{0}\).
+                Poichè q > 1, si hanno S[k + q - 1] \(\prec_{0}\) S[k] e 
+                S[k + q - 1] \(\prec_{1}\) S[k  - 1], da cui S[k - 1] \(\prec_{0}\) S[k].
+                Si ha però che p \(\not\ge\) 1 (S[k] \(\prec_{0}\) S[k - 1]) 
+                e p \(\ne\) 1 (S[k - 1] = S[k]). Da cui un'altra contraddizione.
+        \end{enumerate}
+
+        Ciò conclude la dimostrazione, 
+        mostrando come il numero di run non possa essere superiore agli n - 1 
+        potenziali valori di k.
+    \end{frame}
 \end{document}
