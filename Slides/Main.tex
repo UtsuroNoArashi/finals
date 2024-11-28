@@ -9,7 +9,6 @@
     \begin{frame}
         \maketitle
     \end{frame}
-
     \begin{frame}{Notazione}
         \begin{enumerate}
             \item \(\Sigma\) è un alfabeto ordinato e finito di simboli
@@ -22,7 +21,6 @@
                 posizioni i e j, 
         \end{enumerate}
     \end{frame}
-
     \begin{frame}{Periodo ed esponente}
         \textbf{Definizione: } Data S una stringa,
         si definisce \emph{periodo} un intero \(p \ge 1\)
@@ -31,13 +29,11 @@
         \textbf{Definizione: } Si definisce \emph{esponente} \(\exp\)
         il rapporto tra la lunghezza di S e del suo più piccolo periodo.
     \end{frame}
-
     \begin{frame}{Ripetizioni massimali}
         \textbf{Definizione: } Una coppia (i, j) è detta ripetizione massimale
         (o run) di una stringa S, se \(\exp(S[i, j]) \ge 2p\) e la periodicità
         non può essere estesa ne a destra ne a sinistra.
     \end{frame}
-
     \begin{frame}{Un esempio}
         Sia considerata la stringa \(S = babbabbababbabbabc\); questa contiene nove 
         run, mostrati in \emph{Figura \ref{fig:1}}.
@@ -49,7 +45,6 @@
             \label{fig:1}
         \end{figure}
     \end{frame}
-
     \begin{frame}{Background storico}
 
         Sia \(\rho(S)\) il numero dei run in una stringa S.
@@ -63,17 +58,25 @@
                  \emph{Finding maximal repetitions in a word in linear time. FOCS, 1999}
          }
     \end{frame}
+    \begin{frame}{Premessa}
+        Si puntualizza che la congettura è stata dimostrata per la prima 
+        volta da Bannai et al.\footnotemark[2]
+        
+        La dimostrazione di Bannai et al. risulta essere complessa,
+        per tale ragione sarà analizzata la versione proposta da Crochemore et al.\footnotemark[3]
 
-    \begin{frame}{Punti chiave della discussione}
-        \begin{enumerate}
-            \item Dimostrazione della runs conjecture.
-            \item Applicazione della soluzione algoritmica.
-        \end{enumerate}
+        \footnotetext[2]{HIDEO BANNAI, TOMOHIRO I, SHUNSUKE INENAGA,
+            YUTO NAKASHIMA, MASAYUKI TAKEDA \footnotesize{AND} KAZUYA TSURATA, 
+            \emph{The ``Runs'' Theorem. SODA, 2015}
+        }
+
+        \footnotetext[3]{MAXIME CROCHEMORE \footnotesize{AND} ROBERT MERCAS,
+            \emph{On density of Lyndor roots in factors. Theorical computer science, 2016}
+        }
     \end{frame}
-
     \begin{frame}{Lyndon words}
 
-        Sia \(\prec\) l'ordine totale definito su \(\Sigma\),
+        Sia \(\prec\) un ordine totale definito su \(\Sigma\),
         e si indichi con lo stesso l'ordine indotto su \(\Sigma^{*}\).
         
         Assunto \(\prec \text{ su } \Sigma\), si può definire \(\tilde{\prec}\)
@@ -88,19 +91,20 @@
 
     \end{frame}
     \begin{frame}
-        Data S una stringa e un indice i, \(1 \le i \le n\),
-        la stringa S[i, n]S[1, i] è detta \emph{shift ciclico} di S 
+        Data S una stringa e i un indice, con \(1 \le i \le n\),
+        la stringa S[i,n]S[1,i - 1] è detta \emph{shift ciclico} di S 
         (se i > 1 \emph{shift ciclico non banale}).
 
         \textbf{Definizione (Lyndon word): } 
         Una stringa \(S \in \Sigma^{*}, S \ne \varepsilon\),
-        è detta Lyndon word se S è minore di ogni suo shift ciclico non banale.
+        è detta Lyndon word se, fissato un ordine,
+        S è minore di ogni suo shift ciclico non banale.
     \end{frame}
     \begin{frame}{La ``Runs'' conjecture}
-        \textbf{Congettura: } \(\rho(S) < \abs{S}\), per ogni stringa S.
+        \textbf{Teorema: } \(\rho(S) < \abs{S}\), per ogni stringa S.
 
         \textbf{Dimostrazione: } Sia S una stringa di lunghezza n,
-        e sia (i, j), \(0 \le i < j < n\), un suo run con periodo p minore.
+        e sia (i, j), \(0 \le i < j < n\), un suo run con periodo p minimo.
 
         Se j + 1 < n, ed inoltre S[j - p + 1] \(\prec_{0}\) S[j + 1],
         al run si assegna un indice k tale per cui S[k, j] è il \emph{longest proper suffisso}
@@ -124,11 +128,11 @@
     \end{frame}
     \begin{frame}
         \begin{enumerate}
-            \item j = l, ma allora S[k, j] = S[k, l].
+            \item Sia j = l, ma allora S[k, j] = S[k, l].
                 Assumendo per esempio p < q, S[k, k + q - 1] ha periodo p,
                 ma allora questa non è border-free, che è una contraddizione.
 
-            \item sia j < l, ragionamento analogo vale nel caso j > l, 
+            \item Sia j < l, ragionamento analogo vale nel caso j > l, 
                 inoltre siano i suffissi i più lunghi rispetto un stesso ordine.
                 Posto d = S[j + 1], carattere successivo il p-run, 
                 per definizione si ha S[j - p + 1] \(\prec\) d. 
@@ -139,13 +143,13 @@
     \end{frame}
     \begin{frame}
         \begin{enumerate}
-            \item [3.] \(j \ne l\) e i suffissi risultano essere massimali secondo ordini diversi.
-                Senza perdita di generalita sia p < q e il suffisso del p-run
+            \item [3.] Sia \(j \ne l\) e i suffissi risultano essere massimali secondo ordini diversi.
+                Senza perdita di generalità sia p < q e il suffisso del p-run
                 sia massimale rispetto \(\prec_{0}\).
                 Poichè q > 1, si hanno S[k + q - 1] \(\prec_{0}\) S[k] e 
                 S[k + q - 1] \(\prec_{1}\) S[k  - 1], da cui S[k - 1] \(\prec_{0}\) S[k].
                 Si ha però che p \(\not\ge\) 1 (S[k] \(\prec_{0}\) S[k - 1]) 
-                e p \(\ne\) 1 (S[k - 1] = S[k]). Da cui un'altra contraddizione.
+                inoltre p \(\ne\) 1 (S[k - 1] = S[k]). Da cui un'altra contraddizione.
         \end{enumerate}
 
         Ciò conclude la dimostrazione, 
